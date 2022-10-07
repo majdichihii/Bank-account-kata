@@ -16,10 +16,10 @@
 
 ## HOW-TO
 
-1. ** In order to run the service execute this two commands:
+1. ** In order to run the service execute these two commands:
     ```
     mvn clean install
     ```
-   ```
+    ```
     mvn spring-boot:run
     ```
