@@ -16,10 +16,11 @@
 
 ## HOW-TO
 
-1. ** In order to run the service execute these two commands:
+1. In order to run the service execute these two commands:
     ```
     mvn clean install
-    ```
-    ```
     mvn spring-boot:run
     ```
+2. An API documentation is provided using the Springfox implementation
+of the Swagger 2 specification. 
+   Navigate to : http://localhost:9915/swagger-ui.html

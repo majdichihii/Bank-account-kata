@@ -61,9 +61,12 @@ public class TransactionControllerTest {
     MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
     System.out.println(result.getResponse().getContentAsString());
+    LocalDate expectedDate =LocalDate.now();
     String expected = "[{\"id\":\"b3cb5122-8d19-4510-b9d9-6591412574c5\","
       + "\"accountId\":\"222e568b-1d8c-4b39-99a3-8f820f72483c\","
-      + "\"date\":\"2022-10-07\",\"transactionAmount\":300,"
+      + "\"date\":"
+      + expectedDate + ","
+      + "\"transactionAmount\":300,"
       + "\"creditDebitIndicator\":\"CRDT\"}]";
 
     JSONAssert.assertEquals(expected, result.getResponse()
