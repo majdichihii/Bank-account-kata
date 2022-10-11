@@ -24,27 +24,30 @@ public class EphemeralStorageService {
   static {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
     ACCOUNTS = new HashSet<>(Arrays.asList(
-      new Account()
-        .withId(UUID.randomUUID().toString())
-        .withName("VALUE CONSULTING")
-        .withBalance(new BigDecimal(1700))
-        .withIban("5110980584")
-        .withBban("TN5908003000511098058479")
-        .withAccountOpeningDate(LocalDate.parse("24/09/2019", formatter)),
-      new Account()
-        .withId(UUID.randomUUID().toString())
-        .withName("Mr MOHAMED OUNI")
-        .withBalance(new BigDecimal(66000))
-        .withIban("C459001390")
-        .withBban("TN5908032012045900139034")
-        .withAccountOpeningDate(LocalDate.parse("11/08/2016", formatter)),
-      new Account()
-        .withId(UUID.randomUUID().toString())
-        .withName("Mme BEN AYED KHANSA")
-        .withBalance(new BigDecimal(82000))
-        .withIban("7120998891")
-        .withBban("TN5908003000712099889116")
-        .withAccountOpeningDate(LocalDate.parse("01/02/2021", formatter))
+      Account.builder()
+        .id(UUID.randomUUID().toString())
+        .name("VALUE CONSULTING")
+        .balance(new BigDecimal(1700))
+        .iban("5110980584")
+        .bban("TN5908003000511098058479")
+        .accountOpeningDate(LocalDate.parse("24/09/2019", formatter))
+        .build(),
+      Account.builder()
+        .id(UUID.randomUUID().toString())
+        .name("Mr MOHAMED OUNI")
+        .balance(new BigDecimal(66000))
+        .iban("C459001390")
+        .bban("TN5908032012045900139034")
+        .accountOpeningDate(LocalDate.parse("11/08/2016", formatter))
+        .build(),
+      Account.builder()
+        .id(UUID.randomUUID().toString())
+        .name("Mme BEN AYED KHANSA")
+        .balance(new BigDecimal(82000))
+        .iban("7120998891")
+        .bban("TN5908003000712099889116")
+        .accountOpeningDate(LocalDate.parse("01/02/2021", formatter))
+        .build()
     ));
     TRANSACTIONS = new HashSet<>();
 

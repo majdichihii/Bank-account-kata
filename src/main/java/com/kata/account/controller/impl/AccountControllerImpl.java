@@ -1,13 +1,13 @@
 package com.kata.account.controller.impl;
 
 import com.kata.account.controller.AccountController;
+import com.kata.account.exception.AccountNotFoundException;
 import com.kata.account.exception.InsufficientFundsException;
 import com.kata.account.model.Account;
 import com.kata.account.model.PostBalanceRequest;
 import com.kata.account.model.PostBalanceResponse;
 import com.kata.account.service.AccountService;
 import java.util.Set;
-import javax.security.auth.login.AccountNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,9 @@ public class AccountControllerImpl implements AccountController {
     PostBalanceRequest postBalanceRequest) {
     try {
       return new ResponseEntity<>(
-        new PostBalanceResponse().withId(accountService.balanceDeposit(postBalanceRequest))
+        PostBalanceResponse.builder()
+          .id(accountService.balanceDeposit(postBalanceRequest))
+          .build()
         , HttpStatus.OK);
     } catch (AccountNotFoundException e) {
       log.error("Error when updating account: {} ", e.toString());
@@ -46,7 +48,9 @@ public class AccountControllerImpl implements AccountController {
     PostBalanceRequest postBalanceRequest) {
     try {
       return new ResponseEntity<>(
-        new PostBalanceResponse().withId(accountService.balanceWithdrawal(postBalanceRequest))
+        PostBalanceResponse.builder()
+          .id(accountService.balanceWithdrawal(postBalanceRequest))
+          .build()
         , HttpStatus.OK);
     } catch (AccountNotFoundException | InsufficientFundsException e) {
       log.error("Error when updating account: {} ", e.toString());

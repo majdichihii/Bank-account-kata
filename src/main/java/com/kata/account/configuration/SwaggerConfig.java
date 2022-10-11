@@ -38,7 +38,6 @@ public class SwaggerConfig {
 
   /**
    * Adds metadata to Swagger
-   *
    */
   private ApiInfo metadata() {
     return new ApiInfoBuilder()

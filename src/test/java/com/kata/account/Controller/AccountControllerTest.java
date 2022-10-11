@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
@@ -43,17 +44,26 @@ public class AccountControllerTest {
 
   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
   Set<Account> mockAccounts = new HashSet<>(Collections.singletonList(
-    new Account()
-      .withId("1")
-      .withName("VALUE CONSULTING")
-      .withBalance(new BigDecimal(1700))
-      .withIban("5110980584")
-      .withBban("TN5908003000511098058479")
-      .withAccountOpeningDate(LocalDate.parse("24/09/2019", formatter))));
+    Account.builder()
+      .id("1")
+      .name("VALUE CONSULTING")
+      .balance(new BigDecimal(1700))
+      .iban("5110980584")
+      .bban("TN5908003000511098058479")
+      .accountOpeningDate(LocalDate.parse("24/09/2019", formatter))
+      .build()
+  ));
+
+
+  @Before
+  public void setUp() {
+    Mockito.when(accountService.getAccounts()).thenReturn(mockAccounts);
+    Mockito.when(accountService.balanceDeposit(Mockito.any())).thenReturn("1");
+    Mockito.when(accountService.balanceWithdrawal(Mockito.any())).thenReturn("1");
+  }
 
   @Test
   public void getAccountsTest() throws Exception {
-    Mockito.when(accountService.getAccounts()).thenReturn(mockAccounts);
 
     RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
       "/api/v1/account").accept(
@@ -78,7 +88,6 @@ public class AccountControllerTest {
   @Test
   public void balanceDepositTest() throws Exception {
     String examplePostBalanceRequest = "{\"accountId\" : \"1\",\"amount\" : \"100\"}";
-    Mockito.when(accountService.balanceDeposit(Mockito.any())).thenReturn("1");
 
     RequestBuilder requestBuilder = MockMvcRequestBuilders.post(
       "/api/v1/account/deposit").accept(
@@ -99,7 +108,6 @@ public class AccountControllerTest {
   @Test
   public void balanceWithdrawalTest() throws Exception {
     String examplePostBalanceRequest = "{\"accountId\" : \"1\",\"amount\" : \"100\"}";
-    Mockito.when(accountService.balanceWithdrawal(Mockito.any())).thenReturn("1");
 
     RequestBuilder requestBuilder = MockMvcRequestBuilders.post(
       "/api/v1/account/withdrawal").accept(

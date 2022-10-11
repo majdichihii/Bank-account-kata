@@ -2,7 +2,6 @@ package com.kata.account.service;
 
 import com.kata.account.model.Transaction;
 import java.util.Set;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

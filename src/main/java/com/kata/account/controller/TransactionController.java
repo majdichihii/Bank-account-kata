@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 public interface TransactionController {
 
-  @ApiOperation(value = "Fetches all Transactions", response = Transaction.class ,  responseContainer = "Set")
+  @ApiOperation(value = "Fetches all Transactions", response = Transaction.class, responseContainer = "Set")
   @ApiResponses(value = {
     @ApiResponse(code = 200, message = "Transaction items. transactions retrieved from an ephemeral storage", response = Account.class, responseContainer = "Set"),
     @ApiResponse(code = 400, message = "BadRequest"),
@@ -20,7 +20,7 @@ public interface TransactionController {
     @ApiResponse(code = 500, message = "InternalServerError")
   })
   @RequestMapping(
-    value = {"/api/v1/transactions"},
+    value = {"/api/v1/history"},
     produces = {"application/json"},
     method = {RequestMethod.GET}
   )
