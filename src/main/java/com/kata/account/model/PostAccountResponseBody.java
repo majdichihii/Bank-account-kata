@@ -7,6 +7,5 @@ import lombok.Data;
 @Data
 @Builder
 public class PostAccountResponseBody {
-    @JsonProperty("id")
     private String id;
 }

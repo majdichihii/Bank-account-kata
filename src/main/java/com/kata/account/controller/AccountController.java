@@ -30,7 +30,7 @@ public interface AccountController {
             consumes = {"application/json"},
             method = {RequestMethod.POST}
     )
-    ResponseEntity<PostAccountResponseBody> PostAccounts(@Valid @NotNull @RequestBody PostAccountRequestBody postAccountRequestBody);
+    ResponseEntity<PostAccountResponseBody> PostAccounts(@Valid @NotNull @RequestBody Account account);
 
     @ApiOperation(value = "Fetches all account", response = Account.class, responseContainer = "Set")
     @ApiResponses(value = {

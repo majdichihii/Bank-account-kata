@@ -9,7 +9,6 @@ import lombok.*;
 @Builder
 public class PostBalanceResponse {
 
-  @JsonProperty("id")
-  private String id;
+    private String id;
 
 }

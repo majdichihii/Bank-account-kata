@@ -2,7 +2,6 @@ package com.kata.account.Controller;
 
 
 import com.kata.account.controller.AccountController;
-import com.kata.account.mapper.PostAccountRequestBodyAccountMapper;
 import com.kata.account.model.Account;
 import com.kata.account.service.AccountService;
 import java.math.BigDecimal;
@@ -40,8 +39,6 @@ public class AccountControllerTest {
   @MockBean
   private AccountService accountService;
 
-  @MockBean
-  private PostAccountRequestBodyAccountMapper postAccountRequestBodyAccountMapper;
   private final String OK_STATUS = "200";
 
 

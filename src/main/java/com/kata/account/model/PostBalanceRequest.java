@@ -10,9 +10,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 public class PostBalanceRequest {
-  @JsonProperty("accountId")
-  private String accountId;
-  @JsonProperty("amount")
-  private BigDecimal amount;
+    private String accountId;
+    private BigDecimal amount;
 
 }
