@@ -4,7 +4,7 @@ package com.kata.account.Controller;
 import com.kata.account.controller.TransactionController;
 import com.kata.account.model.CreditDebitIndicator;
 import com.kata.account.model.Transaction;
-import com.kata.account.service.TransactionService;
+import com.kata.account.service.impl.TransactionServiceImpl;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collections;
@@ -37,7 +37,7 @@ public class TransactionControllerTest {
   @Autowired
   private MockMvc mockMvc;
   @MockBean
-  TransactionService transactionService;
+  TransactionServiceImpl transactionServiceImpl;
 
   Set<Transaction> mockTransactions = new HashSet<>(Collections.singletonList(
     Transaction.builder()
@@ -52,7 +52,7 @@ public class TransactionControllerTest {
   @Test
   public void getTransactionsTest() throws Exception {
     String accountId ="222e568b-1d8c-4b39-99a3-8f820f72483c";
-    Mockito.when(transactionService.getTransactionsByAccountId(accountId)).thenReturn(mockTransactions);
+    Mockito.when(transactionServiceImpl.getTransactionsByAccountId(accountId)).thenReturn(mockTransactions);
 
     RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
       "/api/v1/history").queryParam("accountId",accountId).accept(

@@ -10,10 +10,10 @@ import lombok.*;
 @Builder
 public class Transaction {
 
-  private String id;
-  private String accountId;
-  private LocalDate date;
-  private BigDecimal transactionAmount;
-  private CreditDebitIndicator creditDebitIndicator;
+    private String id;
+    private String accountId;
+    private LocalDate date;
+    private BigDecimal transactionAmount;
+    private CreditDebitIndicator creditDebitIndicator;
 
 }

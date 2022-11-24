@@ -13,18 +13,18 @@ import lombok.*;
 @Builder
 public class Account {
 
-  private String id;
-  private String name;
-  private BigDecimal balance;
-  private String iban;
-  private String bban;
-  private LocalDate accountOpeningDate;
+    private String id;
+    private String name;
+    private BigDecimal balance;
+    private String iban;
+    private String bban;
+    private LocalDate accountOpeningDate;
 
-  public Account(String name, BigDecimal balance, String iban, String bban, LocalDate accountOpeningDate) {
-    this.name = name;
-    this.balance = balance;
-    this.iban = iban;
-    this.bban = bban;
-    this.accountOpeningDate = accountOpeningDate;
-  }
+    public Account(String name, BigDecimal balance, String iban, String bban, LocalDate accountOpeningDate) {
+        this.name = name;
+        this.balance = balance;
+        this.iban = iban;
+        this.bban = bban;
+        this.accountOpeningDate = accountOpeningDate;
+    }
 }

@@ -3,7 +3,7 @@ package com.kata.account.Controller;
 
 import com.kata.account.controller.AccountController;
 import com.kata.account.model.Account;
-import com.kata.account.service.AccountService;
+import com.kata.account.service.impl.AccountServiceImpl;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -37,7 +37,7 @@ public class AccountControllerTest {
   private MockMvc mockMvc;
 
   @MockBean
-  private AccountService accountService;
+  private AccountServiceImpl accountServiceImpl;
 
   private final String OK_STATUS = "200";
 
@@ -57,9 +57,9 @@ public class AccountControllerTest {
 
   @Before
   public void setUp() {
-    Mockito.when(accountService.getAccounts()).thenReturn(mockAccounts);
-    Mockito.when(accountService.balanceDeposit(Mockito.any())).thenReturn("1");
-    Mockito.when(accountService.balanceWithdrawal(Mockito.any())).thenReturn("1");
+    Mockito.when(accountServiceImpl.getAccounts()).thenReturn(mockAccounts);
+    Mockito.when(accountServiceImpl.balanceDeposit(Mockito.any())).thenReturn("1");
+    Mockito.when(accountServiceImpl.balanceWithdrawal(Mockito.any())).thenReturn("1");
   }
 
   @Test

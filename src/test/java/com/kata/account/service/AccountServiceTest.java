@@ -12,6 +12,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+
+import com.kata.account.service.impl.AccountServiceImpl;
+import com.kata.account.service.impl.EphemeralStorageServiceImpl;
 import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,10 +34,10 @@ import static org.junit.Assert.assertEquals;
 public class AccountServiceTest {
 
   @InjectMocks
-  AccountService accountService;
+  AccountServiceImpl accountServiceImpl;
 
   @Mock
-  EphemeralStorageService ephemeralStorageService;
+  EphemeralStorageServiceImpl ephemeralStorageServiceImpl;
 
   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
   Set<Account> mockAccounts = new HashSet<>(Collections.singletonList(
@@ -50,16 +53,16 @@ public class AccountServiceTest {
 
   @Before
   public void setUp() {
-    Mockito.when(ephemeralStorageService.getAccounts()).thenReturn(mockAccounts);
-    Mockito.when(ephemeralStorageService.putAccount(Mockito.any())).thenReturn("1");
-    Mockito.when(ephemeralStorageService.addTransaction(Mockito.any())).thenReturn(true);
-    Mockito.when(ephemeralStorageService.getAccountById(Mockito.any()))
+    Mockito.when(ephemeralStorageServiceImpl.getAccounts()).thenReturn(mockAccounts);
+    Mockito.when(ephemeralStorageServiceImpl.putAccount(Mockito.any())).thenReturn("1");
+    Mockito.when(ephemeralStorageServiceImpl.addTransaction(Mockito.any())).thenReturn(true);
+    Mockito.when(ephemeralStorageServiceImpl.getAccountById(Mockito.any()))
       .thenReturn(mockAccounts.stream().findFirst());
   }
 
   @Test
   public void getAccountsTest(){
-    Set<Account> accounts = accountService.getAccounts();
+    Set<Account> accounts = accountServiceImpl.getAccounts();
     System.out.println("acc:");
     System.out.println(accounts.toString());
     System.out.println("mockAccounts:");
@@ -70,26 +73,26 @@ public class AccountServiceTest {
   @Test
   public void balanceDeposit() throws JSONException, AccountNotFoundException {
     PostBalanceRequest postBalanceRequest = new PostBalanceRequest("1", BigDecimal.valueOf(100));
-    JSONAssert.assertEquals(accountService.balanceDeposit(postBalanceRequest), "1", false);
+    JSONAssert.assertEquals(accountServiceImpl.balanceDeposit(postBalanceRequest), "1", false);
   }
 
   @Test(expected = AccountNotFoundException.class)
   public void balanceDepositAccountDoesNotExist() throws JSONException, AccountNotFoundException {
     PostBalanceRequest postBalanceRequest = new PostBalanceRequest("1", BigDecimal.valueOf(100));
-    Mockito.when(ephemeralStorageService.getAccountById(Mockito.any()))
+    Mockito.when(ephemeralStorageServiceImpl.getAccountById(Mockito.any()))
       .thenReturn(Optional.empty());
-    JSONAssert.assertEquals(accountService.balanceDeposit(postBalanceRequest), "1", false);
+    JSONAssert.assertEquals(accountServiceImpl.balanceDeposit(postBalanceRequest), "1", false);
   }
 
   @Test(expected = InsufficientFundsException.class)
   public void balanceWithdrawalInsufficientFunds() throws JSONException, AccountNotFoundException {
     PostBalanceRequest postBalanceRequest = new PostBalanceRequest("1", BigDecimal.valueOf(100000));
-    JSONAssert.assertEquals(accountService.balanceWithdrawal(postBalanceRequest), "1", false);
+    JSONAssert.assertEquals(accountServiceImpl.balanceWithdrawal(postBalanceRequest), "1", false);
   }
 
   @Test
   public void balanceWithdrawal() throws JSONException, AccountNotFoundException {
     PostBalanceRequest postBalanceRequest = new PostBalanceRequest("1", BigDecimal.valueOf(100));
-    JSONAssert.assertEquals(accountService.balanceWithdrawal(postBalanceRequest), "1", false);
+    JSONAssert.assertEquals(accountServiceImpl.balanceWithdrawal(postBalanceRequest), "1", false);
   }
 }

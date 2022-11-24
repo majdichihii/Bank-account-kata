@@ -4,7 +4,7 @@ import com.kata.account.controller.AccountController;
 import com.kata.account.exception.AccountNotFoundException;
 import com.kata.account.exception.InsufficientFundsException;
 import com.kata.account.model.*;
-import com.kata.account.service.AccountService;
+import com.kata.account.service.impl.AccountServiceImpl;
 
 import java.util.Set;
 
@@ -20,21 +20,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AccountControllerImpl implements AccountController {
 
-    private final AccountService accountService;
+    private final AccountServiceImpl accountServiceImpl;
 
     @Override
     public ResponseEntity<PostAccountResponseBody> PostAccounts(Account account) {
         log.debug("creating a new account ...");
         return new ResponseEntity<>(PostAccountResponseBody
                 .builder()
-                .id(accountService.postAccount(account))
+                .id(accountServiceImpl.postAccount(account))
                 .build(), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Set<Account>> getAccounts() {
         log.debug("fetching accounts ...");
-        return new ResponseEntity<>(accountService.getAccounts(), HttpStatus.OK);
+        return new ResponseEntity<>(accountServiceImpl.getAccounts(), HttpStatus.OK);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class AccountControllerImpl implements AccountController {
         try {
             return new ResponseEntity<>(
                     PostBalanceResponse.builder()
-                            .id(accountService.balanceDeposit(postBalanceRequest))
+                            .id(accountServiceImpl.balanceDeposit(postBalanceRequest))
                             .build()
                     , HttpStatus.OK);
         } catch (AccountNotFoundException e) {
@@ -58,7 +58,7 @@ public class AccountControllerImpl implements AccountController {
         try {
             return new ResponseEntity<>(
                     PostBalanceResponse.builder()
-                            .id(accountService.balanceWithdrawal(postBalanceRequest))
+                            .id(accountServiceImpl.balanceWithdrawal(postBalanceRequest))
                             .build()
                     , HttpStatus.OK);
         } catch (AccountNotFoundException | InsufficientFundsException e) {
