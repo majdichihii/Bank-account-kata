@@ -24,6 +24,8 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static org.junit.Assert.assertEquals;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ExtendWith(SpringExtension.class)
 public class AccountServiceTest {
@@ -56,9 +58,13 @@ public class AccountServiceTest {
   }
 
   @Test
-  public void getTransactionsTest() throws JSONException {
+  public void getAccountsTest(){
     Set<Account> accounts = accountService.getAccounts();
-    JSONAssert.assertEquals(accounts.toString(), mockAccounts.toString(), false);
+    System.out.println("acc:");
+    System.out.println(accounts.toString());
+    System.out.println("mockAccounts:");
+    System.out.println(mockAccounts.toString());
+    assertEquals(accounts, mockAccounts);
   }
 
   @Test

@@ -57,6 +57,12 @@ public class EphemeralStorageService {
     return ACCOUNTS;
   }
 
+  public String postAccount(Account account){
+    String accountId = UUID.randomUUID().toString();
+    account.setId(accountId);
+    ACCOUNTS.add(account);
+    return accountId;
+  }
   public Optional<Account> getAccountById(String id) {
     return ACCOUNTS.stream().filter(account -> account.getId().equals(id)).findAny();
   }

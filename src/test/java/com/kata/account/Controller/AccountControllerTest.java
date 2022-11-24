@@ -2,6 +2,7 @@ package com.kata.account.Controller;
 
 
 import com.kata.account.controller.AccountController;
+import com.kata.account.mapper.PostAccountRequestBodyAccountMapper;
 import com.kata.account.model.Account;
 import com.kata.account.service.AccountService;
 import java.math.BigDecimal;
@@ -39,6 +40,8 @@ public class AccountControllerTest {
   @MockBean
   private AccountService accountService;
 
+  @MockBean
+  private PostAccountRequestBodyAccountMapper postAccountRequestBodyAccountMapper;
   private final String OK_STATUS = "200";
 
 
@@ -66,7 +69,7 @@ public class AccountControllerTest {
   public void getAccountsTest() throws Exception {
 
     RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
-      "/api/v1/account").accept(
+      "/api/v1/getAccounts").accept(
       MediaType.APPLICATION_JSON);
 
     MvcResult result = mockMvc.perform(requestBuilder).andReturn();

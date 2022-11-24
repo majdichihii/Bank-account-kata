@@ -50,11 +50,12 @@ public class TransactionControllerTest {
   ));
 
   @Test
-  public void getAccountsTest() throws Exception {
-    Mockito.when(transactionService.getTransactions()).thenReturn(mockTransactions);
+  public void getTransactionsTest() throws Exception {
+    String accountId ="222e568b-1d8c-4b39-99a3-8f820f72483c";
+    Mockito.when(transactionService.getTransactionsByAccountId(accountId)).thenReturn(mockTransactions);
 
     RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
-      "/api/v1/history").accept(
+      "/api/v1/history").queryParam("accountId",accountId).accept(
       MediaType.APPLICATION_JSON);
 
     MvcResult result = mockMvc.perform(requestBuilder).andReturn();

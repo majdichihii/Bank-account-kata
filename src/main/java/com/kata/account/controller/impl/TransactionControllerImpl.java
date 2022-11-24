@@ -19,8 +19,11 @@ public class TransactionControllerImpl implements TransactionController {
   private final TransactionService transactionService;
 
   @Override
-  public ResponseEntity<Set<Transaction>> getTransactions() {
+  public ResponseEntity<Set<Transaction>> getTransactionsByAccountId(String accountId) {
     log.debug("fetching transactions ...");
-    return new ResponseEntity<>(transactionService.getTransactions(), HttpStatus.OK);
+
+    return new ResponseEntity<>(transactionService.getTransactionsByAccountId(accountId
+    ), HttpStatus.OK);
   }
+
 }

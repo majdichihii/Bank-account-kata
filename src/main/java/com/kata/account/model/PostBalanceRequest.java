@@ -1,20 +1,18 @@
 package com.kata.account.model;
 
 import java.math.BigDecimal;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
+
+
+@Data
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 public class PostBalanceRequest {
-
+  @JsonProperty("accountId")
   private String accountId;
+  @JsonProperty("amount")
   private BigDecimal amount;
 
 }
