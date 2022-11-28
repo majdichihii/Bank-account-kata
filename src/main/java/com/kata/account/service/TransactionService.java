@@ -6,5 +6,5 @@ import java.util.Set;
 
 public interface TransactionService {
 
-     Set<Transaction> getTransactionsByAccountId(String accountId);
+    Set<Transaction> getTransactionsByAccountId(String accountId);
 }

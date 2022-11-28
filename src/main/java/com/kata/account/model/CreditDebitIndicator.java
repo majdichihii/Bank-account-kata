@@ -3,11 +3,10 @@ package com.kata.account.model;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum CreditDebitIndicator {
-    CRDT("CRDT"),
-    DBIT("DBIT");
+    CRDT("CRDT"), DBIT("DBIT");
     private final String value;
 
-    private CreditDebitIndicator(String value) {
+    CreditDebitIndicator(String value) {
         this.value = value;
     }
 
