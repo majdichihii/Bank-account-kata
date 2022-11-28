@@ -4,7 +4,7 @@ package com.kata.account.service;
 import com.kata.account.exception.AccountNotFoundException;
 import com.kata.account.exception.InsufficientFundsException;
 import com.kata.account.model.Account;
-import com.kata.account.model.PostBalanceRequest;
+import com.kata.account.model.PostBalanceRequestBody;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -72,27 +72,27 @@ public class AccountServiceTest {
 
   @Test
   public void balanceDeposit() throws JSONException, AccountNotFoundException {
-    PostBalanceRequest postBalanceRequest = new PostBalanceRequest("1", BigDecimal.valueOf(100));
-    JSONAssert.assertEquals(accountServiceImpl.balanceDeposit(postBalanceRequest), "1", false);
+    PostBalanceRequestBody postBalanceRequestBody = new PostBalanceRequestBody("1", BigDecimal.valueOf(100));
+    JSONAssert.assertEquals(accountServiceImpl.balanceDeposit(postBalanceRequestBody), "1", false);
   }
 
   @Test(expected = AccountNotFoundException.class)
   public void balanceDepositAccountDoesNotExist() throws JSONException, AccountNotFoundException {
-    PostBalanceRequest postBalanceRequest = new PostBalanceRequest("1", BigDecimal.valueOf(100));
+    PostBalanceRequestBody postBalanceRequestBody = new PostBalanceRequestBody("1", BigDecimal.valueOf(100));
     Mockito.when(ephemeralStorageServiceImpl.getAccountById(Mockito.any()))
       .thenReturn(Optional.empty());
-    JSONAssert.assertEquals(accountServiceImpl.balanceDeposit(postBalanceRequest), "1", false);
+    JSONAssert.assertEquals(accountServiceImpl.balanceDeposit(postBalanceRequestBody), "1", false);
   }
 
   @Test(expected = InsufficientFundsException.class)
   public void balanceWithdrawalInsufficientFunds() throws JSONException, AccountNotFoundException {
-    PostBalanceRequest postBalanceRequest = new PostBalanceRequest("1", BigDecimal.valueOf(100000));
-    JSONAssert.assertEquals(accountServiceImpl.balanceWithdrawal(postBalanceRequest), "1", false);
+    PostBalanceRequestBody postBalanceRequestBody = new PostBalanceRequestBody("1", BigDecimal.valueOf(100000));
+    JSONAssert.assertEquals(accountServiceImpl.balanceWithdrawal(postBalanceRequestBody), "1", false);
   }
 
   @Test
   public void balanceWithdrawal() throws JSONException, AccountNotFoundException {
-    PostBalanceRequest postBalanceRequest = new PostBalanceRequest("1", BigDecimal.valueOf(100));
-    JSONAssert.assertEquals(accountServiceImpl.balanceWithdrawal(postBalanceRequest), "1", false);
+    PostBalanceRequestBody postBalanceRequestBody = new PostBalanceRequestBody("1", BigDecimal.valueOf(100));
+    JSONAssert.assertEquals(accountServiceImpl.balanceWithdrawal(postBalanceRequestBody), "1", false);
   }
 }
