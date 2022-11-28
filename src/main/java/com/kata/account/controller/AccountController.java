@@ -5,15 +5,14 @@ import com.kata.account.model.*;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-
-import java.util.Set;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 public interface AccountController {
 
@@ -46,7 +45,7 @@ public interface AccountController {
     )
     ResponseEntity<Set<Account>> getAccounts();
 
-    @ApiOperation(value = "Make a deposit in an account", response = PostBalanceResponse.class)
+    @ApiOperation(value = "Make a deposit in an account", response = PostBalanceResponseBody.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Post balance, for the provided accountId", response = Account.class, responseContainer = "Set"),
             @ApiResponse(code = 400, message = "BadRequest"),
@@ -57,11 +56,11 @@ public interface AccountController {
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.POST)
-    ResponseEntity<PostBalanceResponse> postBalanceDeposit(@Valid @NotNull @RequestBody
-                                                           PostBalanceRequest postBalanceRequest);
+    ResponseEntity<PostBalanceResponseBody> postBalanceDeposit(@Valid @NotNull @RequestBody
+                                                               PostBalanceRequestBody postBalanceRequestBody);
 
 
-    @ApiOperation(value = "Make a withdrawal from my account", response = PostBalanceResponse.class)
+    @ApiOperation(value = "Make a withdrawal from my account", response = PostBalanceResponseBody.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "withdraw balance, for the provided accountId", response = Account.class, responseContainer = "Set"),
             @ApiResponse(code = 400, message = "BadRequest"),
@@ -72,7 +71,7 @@ public interface AccountController {
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.POST)
-    ResponseEntity<PostBalanceResponse> postBalanceWithdrawal(@Valid @NotNull @RequestBody
-                                                              PostBalanceRequest postBalanceRequest);
+    ResponseEntity<PostBalanceResponseBody> postBalanceWithdrawal(@Valid @NotNull @RequestBody
+                                                                  PostBalanceRequestBody postBalanceRequestBody);
 
 }

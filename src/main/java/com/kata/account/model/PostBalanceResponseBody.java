@@ -7,7 +7,7 @@ import lombok.*;
 
 @Data
 @Builder
-public class PostBalanceResponse {
+public class PostBalanceResponseBody {
 
   @JsonProperty("id")
   private String id;

@@ -9,7 +9,8 @@ import lombok.*;
 @Data
 @Builder
 @AllArgsConstructor
-public class PostBalanceRequest {
+@NoArgsConstructor
+public class PostBalanceRequestBody {
   @JsonProperty("accountId")
   private String accountId;
   @JsonProperty("amount")

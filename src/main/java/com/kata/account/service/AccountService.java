@@ -5,7 +5,7 @@ import com.kata.account.exception.AccountNotFoundException;
 import com.kata.account.exception.InsufficientFundsException;
 import com.kata.account.model.Account;
 import com.kata.account.model.CreditDebitIndicator;
-import com.kata.account.model.PostBalanceRequest;
+import com.kata.account.model.PostBalanceRequestBody;
 import com.kata.account.model.Transaction;
 import com.kata.account.utils.Constants;
 
@@ -34,36 +34,36 @@ public class AccountService {
         return ephemeralStorageService.postAccount(account);
     }
 
-    public String balanceDeposit(PostBalanceRequest postBalanceRequest)
+    public String balanceDeposit(PostBalanceRequestBody postBalanceRequestBody)
             throws AccountNotFoundException {
-        Account account = this.checkExistingAccount(postBalanceRequest.getAccountId());
+        Account account = this.checkExistingAccount(postBalanceRequestBody.getAccountId());
 
         log.info("adding balance to account with id  = {}",
-                postBalanceRequest.getAccountId());
-        BigDecimal newBalance = account.getBalance().add(postBalanceRequest.getAmount());
+                postBalanceRequestBody.getAccountId());
+        BigDecimal newBalance = account.getBalance().add(postBalanceRequestBody.getAmount());
         account.setBalance(newBalance);
         ephemeralStorageService.addTransaction(
-                this.createNewTransaction(postBalanceRequest, CreditDebitIndicator.DBIT));
+                this.createNewTransaction(postBalanceRequestBody, CreditDebitIndicator.DBIT));
         log.info("Transaction with amount = {} created successfully",
-                postBalanceRequest.getAmount());
+                postBalanceRequestBody.getAmount());
         return ephemeralStorageService.putAccount(account);
 
     }
 
-    public String balanceWithdrawal(PostBalanceRequest postBalanceRequest)
+    public String balanceWithdrawal(PostBalanceRequestBody postBalanceRequestBody)
             throws AccountNotFoundException, InsufficientFundsException {
-        Account account = this.checkExistingAccount(postBalanceRequest.getAccountId());
-        if (account.getBalance().compareTo(postBalanceRequest.getAmount()) >= 0) {
-            BigDecimal newBalance = account.getBalance().subtract(postBalanceRequest.getAmount());
+        Account account = this.checkExistingAccount(postBalanceRequestBody.getAccountId());
+        if (account.getBalance().compareTo(postBalanceRequestBody.getAmount()) >= 0) {
+            BigDecimal newBalance = account.getBalance().subtract(postBalanceRequestBody.getAmount());
             account.setBalance(newBalance);
             ephemeralStorageService.addTransaction(
-                    this.createNewTransaction(postBalanceRequest, CreditDebitIndicator.CRDT));
+                    this.createNewTransaction(postBalanceRequestBody, CreditDebitIndicator.CRDT));
             log.info("Transaction with amount = {} created successfully",
-                    postBalanceRequest.getAmount());
+                    postBalanceRequestBody.getAmount());
             return ephemeralStorageService.putAccount(account);
         } else {
             log.error("insufficient funds in account {}",
-                    postBalanceRequest.getAccountId());
+                    postBalanceRequestBody.getAccountId());
             throw new InsufficientFundsException(Constants.INSUFFICIENT_FUNDS_ERROR_MESSAGE);
         }
     }
@@ -78,13 +78,13 @@ public class AccountService {
         }
     }
 
-    private Transaction createNewTransaction(PostBalanceRequest postBalanceRequest,
+    private Transaction createNewTransaction(PostBalanceRequestBody postBalanceRequestBody,
                                              CreditDebitIndicator creditDebitIndicator) {
         return Transaction.builder()
                 .id(UUID.randomUUID().toString())
-                .accountId(postBalanceRequest.getAccountId())
+                .accountId(postBalanceRequestBody.getAccountId())
                 .date(LocalDate.now())
-                .transactionAmount(postBalanceRequest.getAmount())
+                .transactionAmount(postBalanceRequestBody.getAmount())
                 .creditDebitIndicator(creditDebitIndicator)
                 .build();
     }
